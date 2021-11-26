@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../index";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Avatar, Button, Container, Grid, TextField } from "@material-ui/core";
+import { Avatar, Button, Container, Grid } from "@material-ui/core";
+import TextField from "@material-ui/core/TextField";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import Loader from "./Loader";
 import firebase from "firebase";
@@ -15,7 +16,7 @@ const Chat = () => {
   );
 
   const sendMessage = async () => {
-    firestore.collection("message").add({
+    firestore.collection("messages").add({
       uid: user.uid,
       displayName: user.displayName,
       photoURL: user.photoURL,
@@ -33,7 +34,7 @@ const Chat = () => {
     <Container>
       <Grid
         container
-        justify='center'
+        justify={"center"}
         style={{ height: window.innerHeight - 50, marginTop: 20 }}
       >
         <div
@@ -48,7 +49,8 @@ const Chat = () => {
             <div
               style={{
                 margin: 10,
-                border: user.uid ? "2px solid green" : "2px dashed green",
+                border:
+                  user.uid === message.uid ? "2px solid blue" : "2px solid red",
                 marginLeft: user.uid === message.uid ? "auto" : "10px",
                 width: "fit-content",
                 padding: 5,
@@ -72,11 +74,10 @@ const Chat = () => {
             fullWidth
             rowsMax={2}
             variant={"outlined"}
-            style={{ marginBottom: 5 }}
             value={value}
             onChange={(e) => setValue(e.target.value)}
           />
-          <Button variant={"outlined"} onClick={sendMessage}>
+          <Button onClick={sendMessage} variant={"outlined"}>
             Send
           </Button>
         </Grid>
