@@ -15,7 +15,9 @@ const Chat = () => {
     firestore.collection("messages").orderBy("createdAt")
   );
 
-  const sendMessage = async () => {
+  const sendMessage = async (e) => {
+    e.preventDefault();
+    if (value === "") return;
     firestore.collection("messages").add({
       uid: user.uid,
       displayName: user.displayName,
@@ -72,16 +74,26 @@ const Chat = () => {
           alignItems={"flex-end"}
           style={{ width: "80%" }}
         >
-          <TextField
-            fullWidth
-            rowsMax={2}
-            variant={"outlined"}
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-          />
-          <Button onClick={sendMessage} variant={"outlined"}>
-            Отправить
-          </Button>
+          <form
+            onSubmit={sendMessage}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-end",
+              width: "100%",
+            }}
+          >
+            <TextField
+              fullWidth
+              rowsMax={2}
+              variant={"outlined"}
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+            />
+            <Button type='submit' variant={"outlined"}>
+              Отправить
+            </Button>
+          </form>
         </Grid>
       </Grid>
     </Container>
