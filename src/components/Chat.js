@@ -50,7 +50,9 @@ const Chat = () => {
               style={{
                 margin: 10,
                 border:
-                  user.uid === message.uid ? "2px solid blue" : "2px solid red",
+                  user.uid === message.uid
+                    ? "2px solid green"
+                    : "2px solid blue",
                 marginLeft: user.uid === message.uid ? "auto" : "10px",
                 width: "fit-content",
                 padding: 5,
@@ -78,7 +80,7 @@ const Chat = () => {
             onChange={(e) => setValue(e.target.value)}
           />
           <Button onClick={sendMessage} variant={"outlined"}>
-            Send
+            Отправить
           </Button>
         </Grid>
       </Grid>
